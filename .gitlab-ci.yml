@@ -1,7 +1,7 @@
 # CI de Nível 01 - Disparo automático no GitLab CI
 
 # imagem base com Playwright já preparado
-image: mcr.microsoft.com/playwright:v1.47.2-jammy
+image: mcr.microsoft.com/playwright:v1.60.0-jammy
 
 # estágios da pipeline
 stages:
