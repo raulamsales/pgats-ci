@@ -1,0 +1,38 @@
+# CI de Nível 01 - Disparo Manual através de clique
+
+# nome da pipeline
+name: "Execução Manual"
+
+# gatilhos / triggers - regras de disparo
+trigger: none
+
+# máquina onde a pipeline vai rodar
+pool:
+  vmImage: 'ubuntu-latest'
+
+# passos da pipeline
+steps:
+  # clone do projeto
+  - checkout: self
+
+  # instalação do Node
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '24.x'
+    displayName: 'Instalando Node'
+
+  # instalação do Yarn
+  - script: npm install -g yarn
+    displayName: 'Instalando Yarn'
+
+  # instalação das dependências
+  - script: yarn
+    displayName: 'Instalando dependências'
+
+  # instalação dos Browsers do Playwright
+  - script: yarn playwright install
+    displayName: 'Instalando Browsers do Playwright'
+
+  # executar os testes e2e
+  - script: yarn run e2e
+    displayName: 'Executando testes e2e'
