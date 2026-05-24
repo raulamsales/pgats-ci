@@ -1,0 +1,32 @@
+# CI de Nível 01 - Disparo automático no GitLab CI
+
+# imagem base com Playwright já preparado
+image: mcr.microsoft.com/playwright:v1.47.2-jammy
+
+# estágios da pipeline
+stages:
+  - test
+
+# job de testes e2e
+e2e-tests:
+  stage: test
+
+  # passos do job
+  script:
+    # instalação do Yarn
+    - npm install -g yarn
+
+    # instalação das dependências
+    - yarn
+
+    # executar os testes e2e
+    - yarn run e2e
+
+  # guardar resultados mesmo se falhar
+  artifacts:
+    when: always
+    paths:
+      - results.xml
+      - playwright-report/
+    reports:
+      junit: results.xml
